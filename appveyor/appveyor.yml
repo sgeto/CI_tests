@@ -1,0 +1,58 @@
+# from https://github.com/Framstag/libosmscout/blob/a53ab2b770a11e83f401b0a985aacb096769286c/appveyor.yml
+# It has support for compiling under both the MinGW64 GCC compiler and Microsoft's MSVC2015 compiler.
+
+version: '{build}'
+
+branches:
+  only:
+    - master
+    
+os: Visual Studio 2015
+
+environment:
+  matrix:
+  - COMPILER: msvc2015
+    PLATFORM: x64
+    CONFIGURATION: Debug
+    MSYS2_ARCH: x86_64
+    MSYS2_DIR: msys64
+    MSYSTEM: MINGW64
+    BIT: 64
+    BUILDTOOL: msbuild
+  - COMPILER: msvc2015
+    PLATFORM: x64
+    CONFIGURATION: Debug
+    MSYS2_ARCH: x86_64
+    MSYS2_DIR: msys64
+    MSYSTEM: MINGW64
+    BIT: 64
+    BUILDTOOL: cmake
+  - COMPILER: msys2
+    PLATFORM: x64
+    MSYS2_ARCH: x86_64
+    MSYS2_DIR: msys64
+    MSYSTEM: MINGW64
+    BIT: 64
+    BUILDTOOL: autoconf
+  - COMPILER: msys2
+    PLATFORM: x64
+    MSYS2_ARCH: x86_64
+    MSYS2_DIR: msys64
+    MSYSTEM: MINGW64
+    BIT: 64
+    BUILDTOOL: cmake
+
+install:
+  - set
+  - '%APPVEYOR_BUILD_FOLDER%\ci\appveyor\install.bat'
+  
+build_script:
+  - '%APPVEYOR_BUILD_FOLDER%\ci\appveyor\build.bat'
+  
+notifications:
+  - provider: Email
+    to:
+      - tim@framstag.com
+    on_build_failure: true
+    on_build_status_changed: true
+  
