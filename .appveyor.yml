@@ -1,0 +1,22 @@
+image: Visual Studio 2017
+configuration: Release
+
+skip_commits:
+  files:
+    - '**/*.md'
+    - 'images/**/*.*'
+
+before_build:
+  - cmd: git clone --recursive -j8 https://github.com/sgeto/wireshark.git
+  - cmd: cd wireshark
+  - cmd: git remote add upstream https://github.com/wireshark/wireshark.git
+  - cmd: git fetch upstream
+  - cmd: cd ..
+  build:
+  - cmd: zip -rm9 wireshark.zip wireshark
+after_build:
+  - cmd: dir
+artifacts:
+  - path: '**\*.zip'
+  - path: wireshark.zip
+deploy: off
