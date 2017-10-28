@@ -13,7 +13,7 @@ before_build:
   - cmd: git fetch upstream
   - cmd: cd ..
 build:
-  - cmd: zip -rm9 wireshark.zip wireshark
+  zip -rm9 wireshark.zip wireshark
 after_build:
   - cmd: dir
 artifacts:
