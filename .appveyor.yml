@@ -12,8 +12,8 @@ before_build:
   - cmd: git remote add upstream https://github.com/wireshark/wireshark.git
   - cmd: git fetch upstream
   - cmd: cd ..
-build:
-  zip -rm9 wireshark.zip wireshark
+build_script:
+  - cmd: zip -rm9 wireshark.zip wireshark
 after_build:
   - cmd: dir
 artifacts:
