@@ -13,7 +13,10 @@ before_build:
   - cmd: git fetch upstream
   - cmd: cd ..
 build_script:
-  - cmd: zip -rm9 wireshark.zip wireshark
+# To create the smallest standard ZIP file that 7-Zip can create, try:
+# 7z a -mm=Deflate -mfb=258 -mpass=15 -r foo.zip C:\Path\To\Files\*
+# Otherwise if you're not care about ZIP standard, use the following ultra settings:
+  - cmd: 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on wireshark.7z wireshark
 after_build:
   - cmd: dir
 artifacts:
