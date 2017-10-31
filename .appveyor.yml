@@ -19,8 +19,9 @@ build_script:
 # 7z a -mm=Deflate -mfb=258 -mpass=15 -r foo.zip C:\Path\To\Files\*
 # Otherwise if you're not care about ZIP standard, use the following ultra settings:
 # XXX - try lzma2 or PPMD and compare sizes:
+# lzma = 470
 # "I regularly compress server/text logs (60MB+) using these options and they usually come out at 1-2% of the original size. For text such as log files, ppmd is definitely the way to go."
-  - cmd: 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on wireshark.7z wireshark
+  - cmd: 7z a -t7z -m0=PPMD -mx=9 -mfb=64 -md=32m -ms=on wireshark.7z wireshark
 after_build:
   - cmd: dir
 artifacts:
