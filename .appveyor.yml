@@ -10,8 +10,8 @@ before_build:
   - cmd: git clone --recursive -j8 https://github.com/sgeto/Divert.git
   - cmd: cd Divert
   - ps: $env:PATH="${env:ProgramFiles(x86)}\Windows Kits\8.1\bin\x86;${env:PATH}"\
-  - cmd: NMake2MSBuild.exe dirs /?
-  - NMake2MSBuild.exe dirs
+  - cmd: NMake2MSBuild.exe dirs & exit /b 0
+  # - NMake2MSBuild.exe dirs
   - cmd: tree /F
   - cmd: git status
   - cmd: cd ..
