@@ -9,7 +9,7 @@ skip_commits:
 before_build:
   # - appveyor DownloadFile https://download.microsoft.com/download/5/A/8/5A8B8314-CA70-4225-9AF0-9E957C9771F7/vs_BuildTools.exe
   - cmd: git clone --recursive -j8 https://github.com/Microsoft/Windows-driver-samples.git
-  - cmd: cd Windows-driver-samples
+  # - cmd: cd Windows-driver-samples
   # - cmd: git remote add upstream https://github.com/wireshark/wireshark.git
   # - cmd: git fetch upstream
   # - cmd: echo %cd% && md %cd%\VS_BuildTools2017_offline
