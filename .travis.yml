@@ -1,7 +1,7 @@
 # https://andrewdolby.com/articles/2016/continuous-deployment-for-qt-applications/
 
-dist: trusty
-sudo: required
+# dist: trusty
+# sudo: required
 
 git:
   depth: 1
