@@ -1,6 +1,6 @@
 install:
 - appveyor DownloadFile https://nmap.org/npcap/dist/latest-npcap-installer.exe
-- choco install autoit.commandline
+- choco install -y --no-progress autoit.commandline
 
 build_script:
 - cmd: >-
