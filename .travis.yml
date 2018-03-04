@@ -10,3 +10,4 @@ language: cpp
 
 script:
   - cmake --version
+  # cmake version 3.9.2
