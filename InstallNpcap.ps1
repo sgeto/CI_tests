@@ -1,26 +1,39 @@
 # Config
-$urlPath = "https://nmap.org/npcap/dist/npcap-0.90.exe"
-$urlPath2 = "https://nmap.org/npcap/dist/latest-npcap-installer.exe"
-$checksum = "0477a42a9c54f31a7799fb3ee0537826041730f462abfc066fe36d81c50721a7"
+$urlPath = "https://nmap.org/npcap/dist/latest-npcap-installer.exe"
+$autoit = 'Run ("latest-npcap-installer.exe /disable_restore_point=yes /npf_startup=yes /loopback_support=yes /dlt_null=no /admin_only=no /dot11_support=yes /vlan_support=yes /winpcap_mode=yes")
+WinWait ("Npcap", "License Agreement")
+If Not WinActive ("Npcap", "License Agreement") Then WinActivate ("Npcap", "License Agreement")
+WinWaitActive ("Npcap", "License Agreement")
+Send ("!a")
+Send ("!i")
+WinWaitActive ("Npcap", "Installation Complete")
+Send ("!n")
+Send ("Enter")'
 
 ############
-############
-# Download the file
-wget $urlPath -UseBasicParsing -OutFile $PSScriptRoot"\npcap.exe"
 
-# Now let's check its checksum
-$_chksum = $(CertUtil -hashfile $PSScriptRoot"\npcap.exe" SHA256)[1] -replace " ",""
-if ($_chksum -ne $checksum){
-    echo "Checksums does NOT match !"
-    exit
-} else {
-    echo "Checksums matches !"
-}
-# Run installer
-Start-Process $PSScriptRoot"\npcap.exe" -ArgumentList "/loopback_support=yes /winpcap_mode=yes /dot11_support=yes" -wait
+echo "Install AutoIT"
+choco install -y --no-progress autoit.commandline > $null
+
+echo "Generate InstallNpcap.au3"
+$autoit | Out-File $PSScriptRoot"\InstallNpcap.au3"
+
+echo "Download the latest Npcap installer"
+wget $urlPath -UseBasicParsing -OutFile $PSScriptRoot"\latest-npcap-installer.exe"
+
+############
+
+echo "Generate InstallNpcap.exe from InstallNpcap.au3"
+Start-Process -FilePath "Aut2exe.exe" -ArgumentList "/in InstallNpcap.au3 /out InstallNpcap.exe /nopack /comp 2 /Console" -NoNewWindow -Wait
+# Invoke-Expression "cmd.exe /c Aut2exe.exe /in InstallNpcap.au3 /out InstallNpcap.exe /nopack /comp 2 /Console"
+
+# Aut2exe.exe /in InstallNpcap.au3 /out InstallNpcap.exe /nopack /comp 2 /Console
+
+echo "Run InstallNpcap.exe"
+Start-Process -FilePath .\InstallNpcap.exe -NoNewWindow -Wait
+
+# Success!
 echo "Npcap installation completed"
 
-wget $urlPath2 -UseBasicParsing -OutFile $PSScriptRoot"\npcap2.exe"
-7z x -y -o"$env:PROGRAMFILES\Npcap" npcap2.exe
-
-Copy-Item 
+# echo Cleanup
+# Remove-Item *.exe, *.au3

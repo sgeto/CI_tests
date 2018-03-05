@@ -1,14 +1,7 @@
 install:
-  - appveyor DownloadFile https://nmap.org/npcap/dist/latest-npcap-installer.exe
-  - choco install -y --no-progress autoit.commandline > NUL
-  # - ps: .\.appveyor\InstallNpcap.ps1
-  - ps: .\.appveyor\InstallWindump.ps1
+  - ps: .\InstallNpcap.ps1
+  - ps: .\InstallWindump.ps1
 build_script:
-- cmd: >-
-    aut2exe.exe  /in "%CD%\InstallNpcap.au3" /out "%CD%\program.exe" /nopack /comp 2 /Console
-
-    program.exe
-
-    dir "%PROGRAMFILES%\Npcap"
-
-    WinDump.exe -D
+  - cmd: >-
+      dir "%PROGRAMFILES%\Npcap"
+      WinDump.exe -D
