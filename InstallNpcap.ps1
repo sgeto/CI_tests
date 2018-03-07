@@ -8,17 +8,32 @@ Send ("!a")
 Send ("!i")
 WinWaitActive ("Npcap", "Installation Complete")
 Send ("!n")
-Send ("Enter")'
+Send("{Enter}")'
 
 ############
 
 echo "Install AutoIT"
-choco install -y --no-progress autoit.commandline > $null
+choco install -y -r --no-progress autoit.commandline > $null
 
 echo "Generate InstallNpcap.au3"
 $autoit | Out-File $PSScriptRoot"\InstallNpcap.au3"
 
 echo "Download the latest Npcap installer"
+
+# https://www.reddit.com/r/PowerShell/comments/3qndf4/not_sure_if_possible_want_to_check_if_file_from/
+# https://github.com/ratchetnclank/NSClient-Checks/blob/master/check-screenconnectupdate.ps1
+# $LocalDirectory = $PSScriptRoot
+# _________
+# $LocalFile = "latest-npcap-installer.exe"
+
+# $Variable = $urlPath
+
+# $Response = (Invoke-WebRequest -Uri $Variable -UseBasicParsing).Links
+
+# $Response.Href -Match 'exe' | ForEach-Object { If(($_ -Split '/')[3] -eq $LocalFile){ $NewFile = ($_).Split('/')[3] ; Invoke-WebRequest -Uri $_ -OutFile $LocalDirectory\$NewFile }}
+
+# $LocalFile = $NewFile
+# -------
 wget $urlPath -UseBasicParsing -OutFile $PSScriptRoot"\latest-npcap-installer.exe"
 
 ############
@@ -30,7 +45,7 @@ Start-Process -FilePath "Aut2exe.exe" -ArgumentList "/in InstallNpcap.au3 /out I
 # Aut2exe.exe /in InstallNpcap.au3 /out InstallNpcap.exe /nopack /comp 2 /Console
 
 echo "Run InstallNpcap.exe"
-Start-Process -FilePath .\InstallNpcap.exe -NoNewWindow -Wait
+Start-Process -FilePath .\InstallNpcap.exe -NoNewWindow -wait
 
 # Success!
 echo "Npcap installation completed"
