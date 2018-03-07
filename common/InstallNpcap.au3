@@ -20,6 +20,7 @@
 ;                             data.
 ; /winpcap_mode=yes:          Install Npcap in WinPcap API-compatible Mode.
 
+; "%PROGRAMFILES%\npcap\Uninstall.exe" /S /Q /no_kill=no
 
 ; https://www.maketecheasier.com/create-automation-scripts-for-windows-with-autoit/
 ; https://msfn.org/board/topic/52181-the-guide-of-using-autoit-for-silent-install/
@@ -28,9 +29,9 @@ Run ("latest-npcap-installer.exe /disable_restore_point=yes /npf_startup=yes /lo
 
 ; Wait for the setup window to become active.
 ; If it doesn't, force it.
-WinWait ("Npcap 0.98", "License Agreement")
-If Not WinActive ("Npcap 0.98", "License Agreement") Then WinActivate ("Npcap 0.98", "License Agreement")
-WinWaitActive ("Npcap 0.98", "License Agreement")
+WinWait ("Npcap", "License Agreement")
+If Not WinActive ("Npcap", "License Agreement") Then WinActivate ("Npcap", "License Agreement")
+WinWaitActive ("Npcap", "License Agreement")
 
 ; Accept the license agreement.
 Send ("!a")
@@ -39,10 +40,10 @@ Send ("!a")
 Send ("!i")
 
 ; Wait for the installation to complete.
-WinWaitActive ("Npcap 0.98", "Installation Complete")
+WinWaitActive ("Npcap", "Installation Complete")
 
 ; Go to final window.
 Send ("!n")
 
 ; Finish/Close setup.
-Send ("Enter")
+Send("{Enter}")
