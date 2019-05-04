@@ -8,7 +8,7 @@ skip_commits:
 
 before_build:
   # - appveyor DownloadFile https://download1199.mediafire.com/jnd0472q3pig/dwxdw734p676b91/190115_%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8_A4S_M760_7.0_M760_01.29.00RPD_CN.00_%E7%BA%AF%E5%87%801_%5B1155%5D.zip.zip
-  - ps: Start-FileDownload 'https://download1199.mediafire.com/duo8r6vao4gg/dwxdw734p676b91/190115_%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8_A4S_M760_7.0_M760_01.29.00RPD_CN.00_%E7%BA%AF%E5%87%801_%5B1155%5D.zip.zip'
+  - cmd: C:\msys64\usr\bin\wget https://download1199.mediafire.com/duo8r6vao4gg/dwxdw734p676b91/190115_%E4%B8%AD%E5%9B%BD%E7%A7%BB%E5%8A%A8_A4S_M760_7.0_M760_01.29.00RPD_CN.00_%E7%BA%AF%E5%87%801_%5B1155%5D.zip.zip
   # - cmd: git clone --recursive -j8 https://github.com/Microsoft/Windows-driver-samples.git
   # - cmd: cd Windows-driver-samples
   # - cmd: git remote add upstream https://github.com/wireshark/wireshark.git
